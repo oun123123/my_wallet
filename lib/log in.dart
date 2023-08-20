@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_wallet/home.dart';
 
 class LoginScren extends StatefulWidget {
   LoginScren({super.key});
@@ -9,7 +10,7 @@ class LoginScren extends StatefulWidget {
 
 class _LoginScrenState extends State<LoginScren> {
   TextEditingController usernamecontroller = TextEditingController();
-  TextEditingController password = TextEditingController();
+  TextEditingController passwordcontroller = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,10 +27,28 @@ class _LoginScrenState extends State<LoginScren> {
                     controller: usernamecontroller,
                     decoration: const InputDecoration(hintText: "user name"))),
             Padding(
-                padding: EdgeInsets.only(left: 16, right: 16),
+                padding: const EdgeInsets.only(left: 16, right: 16),
                 child: TextField(
-                    controller: password,
+                    controller: passwordcontroller,
                     decoration: const InputDecoration(hintText: "password"))),
+            const SizedBox(height: 20),
+            ElevatedButton(
+                onPressed: () {
+                  if (usernamecontroller.text == "oun" &&
+                      passwordcontroller.text == "123") {
+                    //go to main scren
+                    Navigator.of(context).pushAndRemoveUntil(
+                        MaterialPageRoute(
+                            builder: ((context) => const HomePage())),
+                        (route) => false);
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                          content: Text("wrong passwowrd or username")),
+                    );
+                  }
+                },
+                child: const Text("log in")),
           ],
         ),
       ),
